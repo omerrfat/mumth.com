@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Poll</title>
+
+</head>
+
+<body>
+    <h1>Daily Poll</h1>
+    <p id="question">mumth?</p>
+    <button onclick="vote('huzi', 'yes')">Huzi - Yes</button>
+    <button onclick="vote('evil', 'yes')">Evil - Yes</button>
+    <button onclick="vote('budu', 'yes')">Budu - Yes</button>
+    <button onclick="vote('vomer', 'yes')">Vomer - Yes</button>
+    <button onclick="vote('huzi', 'no')">Huzi - No</button>
+    <button onclick="vote('evil', 'no')">Evil - No</button>
+    <button onclick="vote('budu', 'no')">Budu - No</button>
+    <button onclick="vote('vomer', 'no')">Vomer - No</button>
+    <div>
+        <h2>Results</h2>
+        <p>Huzi: <span id="huziCount">0</span></p>
+        <p>Evil: <span id="evilCount">0</span></p>
+        <p>Budu: <span id="buduCount">0</span></p>
+        <p>Vomer: <span id="vomerCount">0</span></p>
+    </div>
+
+    <script>
+        // Function to handle votes
+        function vote(user, choice) {
+            // Get the current date
+            const currentDate = new Date().toLocaleDateString();
+
+            // Get existing data from local storage
+            let pollData = JSON.parse(localStorage.getItem('pollData')) || {};
+
+            // Check if there's data for the current date
+            if (!pollData[currentDate]) {
+                // If no data for the current date, initialize counts for all users
+                pollData[currentDate] = { huzi: 0, evil: 0, budu: 0, vomer: 0 };
+            }
+
+            // Update the count based on the user's choice
+            if (choice === 'yes') {
+                // If user votes "yes," reset their respective counter to 0
+                pollData[currentDate][user] = 0;
+            } else {
+                // If user votes "no," increment their respective counter by 1
+                pollData[currentDate][user]++;
+            }
+
+            // Update the local storage with the new data
+            localStorage.setItem('pollData', JSON.stringify(pollData));
+
+            // Update the UI
+            updateUI();
+        }
+
+        // Function to update the UI with the latest data
+        function updateUI() {
+            // Get the current date
+            const currentDate = new Date().toLocaleDateString();
+
+            // Get the poll data from local storage
+            const pollData = JSON.parse(localStorage.getItem('pollData')) || {};
+
+            // Get the counts for each user for the current date
+            const huziCount = pollData[currentDate] ? pollData[currentDate].huzi : 0;
+            const evilCount = pollData[currentDate] ? pollData[currentDate].evil : 0;
+            const buduCount = pollData[currentDate] ? pollData[currentDate].budu : 0;
+            const vomerCount = pollData[currentDate] ? pollData[currentDate].vomer : 0;
+
+            // Update the UI with the latest counts
+            document.getElementById('huziCount').textContent = huziCount;
+            document.getElementById('evilCount').textContent = evilCount;
+            document.getElementById('buduCount').textContent = buduCount;
+            document.getElementById('vomerCount').textContent = vomerCount;
+        }
+
+        // Initialize the UI on page load
+        updateUI();
+    </script>
+</body>
+
+</html>
