@@ -1,0 +1,40 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+#question {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+div {
+    margin-top: 30px;
+}
+
+h2 {
+    color: #333;
+}
+
+p {
+    margin: 10px 0;
+}
